@@ -1,0 +1,97 @@
+[
+  {
+    "ISIN": "DK0010297464",
+    "Fond": "Sparindex DJSI World KL",
+    "Udbytte": 4.6
+  },
+  {
+    "ISIN": "DK0060300762",
+    "Fond": "Sparindex Emerging Markets KL",
+    "Udbytte": 1.9
+  },
+  {
+    "ISIN": "DK0010297548",
+    "Fond": "Sparindex Europa Growth KL",
+    "Udbytte": 2.1
+  },
+  {
+    "ISIN": "DK0010297621",
+    "Fond": "Sparindex Europa Small Cap KL",
+    "Udbytte": 10.3
+  },
+  {
+    "ISIN": "DK0010297704",
+    "Fond": "Sparindex Europa Value KL",
+    "Udbytte": 0.0
+  },
+  {
+    "ISIN": "DK0060747905",
+    "Fond": "Sparindex Globale Aktier – Etik KL",
+    "Udbytte": 4.8
+  },
+  {
+    "ISIN": "DK0060747822",
+    "Fond": "Sparindex Globale Aktier KL",
+    "Udbytte": 10.2
+  },
+  {
+    "ISIN": "DK0060031847",
+    "Fond": "Sparindex Globale Akt Min Risk KL",
+    "Udbytte": 6.4
+  },
+  {
+    "ISIN": "DK0060748713",
+    "Fond": "Sparindex Høj Risiko KL",
+    "Udbytte": 5
+  },
+  {
+    "ISIN": "DK0010297977",
+    "Fond": "Sparindex Japan Growth KL",
+    "Udbytte": 5.9
+  },
+  {
+    "ISIN": "DK0010298009",
+    "Fond": "Sparindex Japan Small Cap KL",
+    "Udbytte": 0.0
+  },
+  {
+    "ISIN": "DK0010298199",
+    "Fond": "Sparindex Japan Value KL",
+    "Udbytte": 5.6
+  },
+  {
+    "ISIN": "DK0060748556",
+    "Fond": "Sparindex Lav Risiko KL",
+    "Udbytte": 3.4
+  },
+  {
+    "ISIN": "DK0060748630",
+    "Fond": "Sparindex Mellem Risiko KL",
+    "Udbytte": 4.8
+  },
+  {
+    "ISIN": "DK0060442556",
+    "Fond": "Sparindex OMX C25 KL",
+    "Udbytte": 5.4
+  },
+  {
+    "ISIN": "DK0060057487",
+    "Fond": "Sparindex Stabile Obligationer KL",
+    "Udbytte": 0.4
+  },
+  {
+    "ISIN": "DK0010298272",
+    "Fond": "Sparindex USA Growth KL",
+    "Udbytte": 8.4
+  },
+  {
+    "ISIN": "DK0010298355",
+    "Fond": "Sparindex USA Small Cap KL",
+    "Udbytte": 14.2
+  },
+  {
+    "ISIN": "DK0010298439",
+    "Fond": "Sparindex USA Value KL",
+    "Udbytte": 6.3
+  }
+]
