@@ -21,8 +21,9 @@ class Stock():
     conversion_rate = 0
     total_cost = 0
     broker = ''
+    stock_id = 0
 
-    def __init__(self, name, symbol, shares, cost, market_value, dividend, freq, payout_date:datetime, sector, currency, conversion_rate, broker):
+    def __init__(self, name, symbol, shares, cost, market_value, dividend, freq, payout_date:datetime, sector, currency, conversion_rate, stock_id, broker):
         self.name = name
         self.symbol = symbol
         self.shares = shares
@@ -34,6 +35,7 @@ class Stock():
         self.sector = sector
         self.currency = currency
         self.conversion_rate = conversion_rate
+        self.stock_id = stock_id
         self.broker = broker
 
         self.value = shares * market_value
