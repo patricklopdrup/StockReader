@@ -13,7 +13,27 @@ frequency = {
 
 def get_next_payout_date(symbol):
     ''' Returns the next payout date for the stock '''
-    pass
+    try:
+        return get_pay_date_upcoming(symbol)
+    except:
+        # If there is no last paydate it crashes and we calc outself
+        try:
+            last_freq = get_frequency_last(symbol)
+            last_pay_date = get_pay_date_last(symbol)
+            return calc_next_exp_pay_date(last_pay_date, last_freq)
+        except:
+            return 0
+    return 0
+
+
+def calc_next_exp_pay_date(last_pay_date, freq):
+    month_offset = 12 // frequency[freq]
+    next_pay_date_month = last_pay_date.month + month_offset
+    next_pay_date_year = last_pay_date.year
+    if next_pay_date_month > 12:
+        next_pay_date_month %= 12
+        next_pay_date_year += 1
+    return date(next_pay_date_year, next_pay_date_month, 1)
 
 
 def get_upcoming_dividend(symbol):
@@ -65,6 +85,7 @@ def get_last_dividend(symbol):
     token = tokens[0]
     token_userid = tokens[1]
 
+    # Creating an enddate that looks like the one the website uses
     today = datetime.today()
     day = today.day
     month = today.month
@@ -86,42 +107,35 @@ def get_last_dividend(symbol):
     json = r.json()
     return json['CashDividends'][0]
 
-# Get frequency
 
-
+# Get frequency from upcoming dividend
 def get_frequency_upcoming(symbol):
     json = get_upcoming_dividend(symbol)
     return json['data'][0]['frequency'].lower()
 
 
+# Get frequency from last dividend
 def get_frequency_last(symbol):
     json = get_last_dividend(symbol)
     return json['PaymentFrequency'].lower()
 
-# Get pay date
 
-
+# Get pay date from upcoming dividend
 def get_pay_date_upcoming(symbol):
     json = get_upcoming_dividend(symbol)
-    return json['data'][0]['pay_date']
+    pay_date = json['data'][0]['pay_date']
+    return date.fromisoformat(pay_date)
 
 
+# Get pay date from last dividend
 def get_pay_date_last(symbol):
     json = get_last_dividend(symbol)
-    return json['PayDate']
+    pay_date = json['PayDate']
+    return date.fromisoformat(pay_date)
 
 
 if __name__ == '__main__':
-    symbol = 'pfe'
-    # print(get_pay_date(symbol))
-    # last = get_last_dividend(symbol)
-    # pprint(last)
+    symbol = 'aapl'
     hej = get_pay_date_last(symbol)
-    date = date.fromisoformat(hej)
-    hej2 = get_pay_date_last('O')
-    date2 = date.fromisoformat(hej2)
-    print(date < date2)
-    print(f'{date} < {date2}')
-    print('-----')
-    upcoming = get_upcoming_dividend(symbol)
-    pprint(upcoming)
+    print(hej)
+    print(get_next_payout_date('aapl'))
