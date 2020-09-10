@@ -1,5 +1,17 @@
 import requests
 from pprint import pprint
+import json
+
+def get_dividend(symbol):
+    return get_dividend_nasdaq(symbol)
+
+def get_index_fond_dividend(name):
+    with open('index_udbytter_2020.json') as json_file:
+        data = json.load(json_file)
+        for i in data:
+            if i['Fond'] == name:
+                return(i['Udbytte'])
+        return 0.0
 
 def get_dividend_nasdaq(symbol):
     # Make header
@@ -22,12 +34,15 @@ def get_dividend_nasdaq(symbol):
     }
     url = f'https://api.nasdaq.com/api/quote/{symbol}/dividends'
 
-    r = requests.get(url, headers=headers, params=params, timeout=5)
-    json = r.json()
-    annualized_dividend = json['data']['annualizedDividend']
-    if annualized_dividend == 'N/A':
+    try:
+        r = requests.get(url, headers=headers, params=params, timeout=5)
+        json = r.json()
+        annualized_dividend = json['data']['annualizedDividend']
+        if annualized_dividend == 'N/A':
+            return 0
+        return float(annualized_dividend)
+    except:
         return 0
-    return float(annualized_dividend)
 
 def get_dividend_seekingalpha(symbol):
     pass

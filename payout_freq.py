@@ -26,6 +26,17 @@ def get_next_payout_date(symbol):
     return 0
 
 
+def get_frequency(symbol):
+    try:
+        return get_frequency_upcoming(symbol)
+    except:
+        try:
+            return get_frequency_last(symbol)
+        except:
+            return 0
+    return 0
+
+
 def calc_next_exp_pay_date(last_pay_date, freq):
     month_offset = 12 // frequency[freq]
     next_pay_date_month = last_pay_date.month + month_offset
