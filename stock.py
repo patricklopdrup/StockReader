@@ -3,6 +3,7 @@ from pprint import pprint
 from datetime import datetime
 from datetime import date
 
+
 class Stock():
     name = ''
     symbol = ''
@@ -23,7 +24,7 @@ class Stock():
     broker = ''
     stock_id = 0
 
-    def __init__(self, name, symbol, shares, cost, market_value, dividend, freq, payout_date:datetime, sector, currency, conversion_rate, stock_id, broker):
+    def __init__(self, name, symbol, shares, cost, market_value, dividend, freq, payout_date: datetime, sector, currency, conversion_rate, stock_id, broker):
         self.name = name
         self.symbol = symbol
         self.shares = shares
@@ -47,11 +48,8 @@ class Stock():
     def __str__(self):
         return f'{self.name} ({self.symbol}): {self.market_value}. Div: {self.dividend}'
 
-
-
+    def __repr__(self):
+        return str(self)
 
     def calc_value(self, shares, market_value):
         return shares * market_value
-
-
-    

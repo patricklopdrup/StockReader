@@ -6,7 +6,7 @@ from datetime import date
 from pprint import pprint
 
 
-class nordnet():
+class Nordnet():
 
     # Hardcoded sectors because Nordnet returns in danish
     sector_dict = {
@@ -158,6 +158,18 @@ class nordnet():
                 sectors.append(self.sector_dict[symbols[i]])
         return sectors
 
+    def get_conversion_rates(self):
+        rates = []
+        for i in self.portfolio:
+            rates.append(i['instrument']['multiplier'])
+        return rates
+
+    def get_ids(self):
+        ids = []
+        for i in self.portfolio:
+            ids.append(i['instrument']['instrument_id'])
+        return ids
+
     #
     # Get single data via symbol
     #
@@ -193,7 +205,7 @@ class nordnet():
 
 
 if __name__ == '__main__':
-    hej = nordnet()
-    print(hej.get_sectors())
+    hej = Nordnet()
+    pprint(hej.portfolio)
     # instrument_id = 17150971
     # hej.get_single_stock_info(instrument_id)
