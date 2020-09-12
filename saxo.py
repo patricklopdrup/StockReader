@@ -170,8 +170,9 @@ class Saxo():
         # Pull sector and sebsector out of json
         sector = json['GeneralInfo']['StockInfo']['Sector']['Key']
         sub_sector = json['GeneralInfo']['StockInfo']['SubSector']['Key']
-        # Return dict
-        return {'Sector': sector, 'SubSector': sub_sector}
+        # Return sector
+        # TODO return sub sector only for saxo
+        return sector
 
     def get_div_yield_pct(self, uic):
         url = f'https://www.saxoinvestor.dk/openapi/mkt/v1/marketdata/Stock/{uic}/?FieldGroups=GeneralInfo'

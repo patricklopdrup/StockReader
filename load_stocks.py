@@ -115,14 +115,13 @@ def get_saxo_stocks():
 
 
 if __name__ == '__main__':
-    # hej = stock.Stock.test_stock()
-    # print(f'cost: {hej.cost}')
-    # print(f'cost in dkk: {hej.cost_in_dkk()}')
-    hej = get_all_stocks()
-    # for i in hej:
-    #     print(f'{i.symbol}: {i.payout_date}')
-
-    pprint(hej)
-    print()
-    hej.sort(key=lambda x: x.payout_date)
-    pprint(hej)
+    hej = stock.Stock.test_stock()
+    print(f'sector: {hej.sector}')
+    print(f'freq: {hej.freq_as_num()}')
+    print(hej.get_row())
+    
+    # hej = get_all_stocks()
+    # pprint(hej)
+    # print()
+    # hej.sort(key=lambda x: x.payout_date)
+    # pprint(hej)

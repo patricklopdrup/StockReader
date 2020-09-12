@@ -1,4 +1,5 @@
 import requests
+import payout_freq
 from pprint import pprint
 from datetime import datetime
 from datetime import date
@@ -18,11 +19,21 @@ class Stock():
     div_exp = 0
     payout_date = date.today()
     sector = ''
+    sub_sector = ''
     currency = ''
     conversion_rate = 0
     total_cost = 0
+    profit_pct = 0
     broker = ''
     stock_id = 0
+
+    __currency_prefix = {
+        'usd': '$',
+        'eur': '€',
+        'dkk': 'kr.',
+        'nok': 'nok',
+        'sek': 'sek'
+    }
 
     def __init__(self, name, symbol, shares, cost, market_value, dividend, freq, payout_date: datetime, sector, currency, conversion_rate, stock_id, broker):
         self.name = name
@@ -44,6 +55,32 @@ class Stock():
         self.profit = self.value - self.total_cost
         self.div_yield_pct = dividend / market_value
         self.div_exp = dividend * shares
+        self.profit_pct = self.profit / self.total_cost
+
+
+    def get_row(self):
+        '''
+        Row for the stock in Google Sheets.
+        Matching the stock_header.
+        '''
+        return [
+            self.name,
+            self.symbol,
+            self.shares,
+            self.cost_dkk(),
+            self.market_value_dkk(),
+            self.value_dkk(),
+            self.profit_dkk(),
+            self.profit_pct,
+            self.dividend_dkk(),
+            self.div_yield_pct,
+            self.freq_as_num(),
+            self.div_exp_dkk(),
+            self.sector
+        ]
+
+    def get_currency_prefix(self):
+        return self.__currency_prefix[self.currency.lower()]
 
     def convert_all_to_dkk(self):
         rate = self.conversion_rate
@@ -55,25 +92,31 @@ class Stock():
         self.profit *= rate
         self.div_exp *= rate
     
-    def cost_in_dkk(self):
+    def freq_as_num(self):
+        if self.freq:
+            return payout_freq.Payout_freq.frequency[self.freq]
+        else:
+            return ''
+
+    def cost_dkk(self):
         return self.cost * self.conversion_rate
 
-    def market_value_in_dkk(self):
+    def market_value_dkk(self):
         return self.market_value * self.conversion_rate
 
-    def dividend_in_dkk(self):
+    def dividend_dkk(self):
         return self.dividend * self.conversion_rate
 
-    def value_in_dkk(self):
+    def value_dkk(self):
         return self.value * self.conversion_rate
 
-    def total_cost_in_dkk(self):
+    def total_cost_dkk(self):
         return self.total_cost * self.conversion_rate
 
-    def profit_in_dkk(self):
+    def profit_dkk(self):
         return self.profit * self.conversion_rate
 
-    def div_exp_in_dkk(self):
+    def div_exp_dkk(self):
         return self.div_exp * self.conversion_rate
 
     def __str__(self):
@@ -104,5 +147,5 @@ class Stock():
         
     @classmethod
     def test_stock(self):
-        return Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly', date(2020,10,1), {'Sector': 'Consumer Defensive', 'SubSector': 'Beverages - Non-Alcoholic'}, 'USD', 6.2807, 307, 'saxo')
+        return Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly', date(2020,10,1), 'Consumer Defensive', 'USD', 6.2807, 307, 'saxo')
 
