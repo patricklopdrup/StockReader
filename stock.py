@@ -28,7 +28,7 @@ class Stock():
         self.name = name
         self.symbol = symbol
         self.shares = shares
-        self.cost = cost * conversion_rate
+        self.cost = cost
         self.market_value = market_value
         self.dividend = dividend
         self.freq = freq
@@ -45,11 +45,64 @@ class Stock():
         self.div_yield_pct = dividend / market_value
         self.div_exp = dividend * shares
 
+    def convert_all_to_dkk(self):
+        rate = self.conversion_rate
+        self.cost *= rate
+        self.market_value *= rate
+        self.dividend *= rate
+        self.value *= rate
+        self.total_cost *= rate
+        self.profit *= rate
+        self.div_exp *= rate
+    
+    def cost_in_dkk(self):
+        return self.cost * self.conversion_rate
+
+    def market_value_in_dkk(self):
+        return self.market_value * self.conversion_rate
+
+    def dividend_in_dkk(self):
+        return self.dividend * self.conversion_rate
+
+    def value_in_dkk(self):
+        return self.value * self.conversion_rate
+
+    def total_cost_in_dkk(self):
+        return self.total_cost * self.conversion_rate
+
+    def profit_in_dkk(self):
+        return self.profit * self.conversion_rate
+
+    def div_exp_in_dkk(self):
+        return self.div_exp * self.conversion_rate
+
     def __str__(self):
         return f'{self.name} ({self.symbol}): {self.market_value}. Div: {self.dividend}'
 
     def __repr__(self):
         return str(self)
 
-    def calc_value(self, shares, market_value):
-        return shares * market_value
+    def print_all(self):
+        print(f'Name: {self.name}')
+        print(f'Symbol: {self.symbol}')
+        print(f'Shares: {self.shares}')
+        print(f'Cost: {self.cost}')
+        print(f'Market value: {self.market_value}')
+        print(f'Value: {self.value}')
+        print(f'Profit: {self.profit}')
+        print(f'Dividend: {self.dividend}')
+        print(f'Div yield %: {self.div_yield_pct}')
+        print(f'Freq: {self.freq}')
+        print(f'Div exp: {self.div_exp}')
+        print(f'Payout date: {self.payout_date}')
+        print(f'Sector: {self.sector}')
+        print(f'Currency: {self.currency}')
+        print(f'Convertion rate: {self.conversion_rate}')
+        print(f'Total cost: {self.total_cost}')
+        print(f'Broker: {self.broker}')
+        print(f'Stock id: {self.stock_id}')
+        
+    @classmethod
+    def test_stock(self):
+        return Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly', date(2020,10,1), {'Sector': 'Consumer Defensive', 'SubSector': 'Beverages - Non-Alcoholic'}, 'USD', 6.2807, 307, 'saxo')
+
