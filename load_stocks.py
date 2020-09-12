@@ -4,9 +4,11 @@ import stock
 import payout_freq
 import dividend
 import re
+from datetime import date
 from pprint import pprint
 import my_debug
 
+payout = payout_freq.Payout_freq()
 if not my_debug.is_debug:
     nordnet = nordnet.Nordnet()
     saxo = saxo.Saxo()
@@ -35,15 +37,16 @@ def load_frequencies(stock_amount, currencies, symbols):
     frequencies = [''] * stock_amount
     for i in range(stock_amount):
         if currencies[i].lower() == 'usd':
-            frequencies[i] = payout_freq.get_frequency(symbols[i])
+            frequencies[i] = payout.get_frequency(symbols[i])
     return frequencies
 
 
 def load_payout_dates(stock_amount, currencies, symbols):
-    payout_dates = [''] * stock_amount
+    payout_dates = [date.min] * stock_amount
     for i in range(stock_amount):
         if currencies[i].lower() == 'usd':
-            payout_dates[i] = payout_freq.get_next_payout_date(symbols[i])
+            print(f'Her: {symbols[i]}')
+            payout_dates[i] = payout.get_next_payout_date(symbols[i])
     return payout_dates
 
 
@@ -110,9 +113,16 @@ def get_saxo_stocks():
     return stocks
 
 
+
 if __name__ == '__main__':
-    hej = stock.Stock.test_stock()
-    print(f'cost: {hej.cost}')
-    print(f'cost in dkk: {hej.cost_in_dkk()}')
-    hej.print_all()
-    
+    # hej = stock.Stock.test_stock()
+    # print(f'cost: {hej.cost}')
+    # print(f'cost in dkk: {hej.cost_in_dkk()}')
+    hej = get_all_stocks()
+    # for i in hej:
+    #     print(f'{i.symbol}: {i.payout_date}')
+
+    pprint(hej)
+    print()
+    hej.sort(key=lambda x: x.payout_date)
+    pprint(hej)
