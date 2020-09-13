@@ -47,6 +47,11 @@ class Payout_freq():
         return 0
 
 
+    def get_payout_date_upcoming_year(self):
+        # TODO return arr[12] with dividend amount for different months
+        pass
+
+
     def calc_next_exp_pay_date(self, last_pay_date, freq):
         month_offset = 12 // self.frequency[freq]
         next_pay_date_month = last_pay_date.month + month_offset

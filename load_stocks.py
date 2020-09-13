@@ -6,12 +6,11 @@ import dividend
 import re
 from datetime import date
 from pprint import pprint
-import my_debug
 
 payout = payout_freq.Payout_freq()
-if not my_debug.is_debug:
-    nordnet = nordnet.Nordnet()
-    saxo = saxo.Saxo()
+
+nordnet = nordnet.Nordnet()
+saxo = saxo.Saxo()
 
 
 def fix_names(names):
@@ -45,7 +44,6 @@ def load_payout_dates(stock_amount, currencies, symbols):
     payout_dates = [date.min] * stock_amount
     for i in range(stock_amount):
         if currencies[i].lower() == 'usd':
-            print(f'Her: {symbols[i]}')
             payout_dates[i] = payout.get_next_payout_date(symbols[i])
     return payout_dates
 
@@ -113,15 +111,15 @@ def get_saxo_stocks():
     return stocks
 
 
-
 if __name__ == '__main__':
-    hej = stock.Stock.test_stock()
-    print(f'sector: {hej.sector}')
-    print(f'freq: {hej.freq_as_num()}')
-    print(hej.get_row())
-    
-    # hej = get_all_stocks()
-    # pprint(hej)
+    # hej = stock.Stock.test_stock()
+    # print(f'sector: {hej.sector}')
+    # print(f'freq: {hej.freq_as_num()}')
+    # print(hej.get_row())
+
+    hej = get_all_stocks()
+    for i in hej:
+        print(i.print_as_obj())
     # print()
     # hej.sort(key=lambda x: x.payout_date)
     # pprint(hej)
