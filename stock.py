@@ -57,7 +57,6 @@ class Stock():
         self.div_exp = dividend * shares
         self.profit_pct = self.profit / self.total_cost
 
-
     def get_row(self):
         '''
         Row for the stock in Google Sheets.
@@ -91,7 +90,7 @@ class Stock():
         self.total_cost *= rate
         self.profit *= rate
         self.div_exp *= rate
-    
+
     def freq_as_num(self):
         if self.freq:
             return payout_freq.Payout_freq.frequency[self.freq]
@@ -144,8 +143,59 @@ class Stock():
         print(f'Total cost: {self.total_cost}')
         print(f'Broker: {self.broker}')
         print(f'Stock id: {self.stock_id}')
-        
+
+    def print_as_obj(self):
+        print(f'\'{self.name}\', \'{self.symbol}\', {self.shares}, {self.cost}, {self.market_value}, {self.dividend}, \'{self.freq}\', date({self.payout_date.year},{self.payout_date.month},{self.payout_date.day}), \'{self.sector}\', \'{self.currency}\', {self.conversion_rate}, {self.stock_id}, \'{self.broker}\'')
+
     @classmethod
     def test_stock(self):
-        return Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly', date(2020,10,1), 'Consumer Defensive', 'USD', 6.2807, 307, 'saxo')
+        return Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly', date(2020, 10, 1), 'Consumer Defensive', 'USD', 6.2807, 307, 'saxo')
 
+    @classmethod
+    def test_data(self):
+        return [
+            Stock('Sparindex Emerging Markets KL', 'SPIEMIKL', 4.0, 124.19, 123.0,
+                  1.9, '', date(1, 1, 1), 'Index fond', 'DKK', 1.0, 16102899, 'nordnet'),
+            Stock('Sparindex Globale Aktier KL', 'SPVIGAKL', 18.0, 113.99444444444444,
+                  113.55, 10.2, '', date(1, 1, 1), 'Index fond', 'DKK', 1.0, 16670431, 'nordnet'),
+            Stock('Astralis Group A/S', 'ASTGRP', 60.0, 5.39, 4.77, 0, '',
+                  date(1, 1, 1), 'Consumer Cyclical', 'DKK', 1.0, 17150971, 'nordnet'),
+            Stock('Sparindex DJSI World KL', 'SPIDJWKL', 11.0, 163.38, 162.95, 4.6, '', date(
+                1, 1, 1), 'Index fond', 'DKK', 1.0, 16099858, 'nordnet'),
+            Stock('Sparindex Globale Akt Min Risk KL', 'SPIGLAMRIKL', 6.0, 137.45833333333334,
+                  136.95, 6.4, '', date(1, 1, 1), 'Index fond', 'DKK', 1.0, 16100293, 'nordnet'),
+            Stock('Coca-Cola', 'KO', 3.0, 47.44, 50.65, 1.64, 'quarterly',
+                  date(2020, 10, 1), 'Consumer Defensive', 'USD', 6.283305, 307, 'saxo'),
+            Stock('BMW', 'BMW', 2.0, 54.62, 64.37, 0, '', date(1, 1, 1),
+                  'Consumer Cyclical', 'EUR', 7.44065, 117271, 'saxo'),
+            Stock('Novo Nordisk', 'NOVOb', 4.0, 410.95, 419.15, 0, '',
+                  date(1, 1, 1), 'Healthcare', 'DKK', 1.0, 15629, 'saxo'),
+            Stock('SAS', 'SAS', 180.0, 5.63, 4.644, 0, '', date(
+                1, 1, 1), 'Industrials', 'DKK', 1.0, 5901, 'saxo'),
+            Stock('Simon Property Grp', 'SPG', 8.0, 61.505, 64.14, 5.2, 'quarterly', date(
+                2020, 10, 1), 'Real Estate', 'USD', 6.283305, 3957, 'saxo'),
+            Stock('AT&T', 'T', 9.0, 29.807111111111112, 29.0, 2.08, 'quarterly', date(
+                2020, 11, 1), 'Communication Services', 'USD', 6.283305, 303, 'saxo'),
+            Stock('Maersk Drilling', 'DRLCO', 10.0, 154.0, 137.2, 0, '',
+                  date(1, 1, 1), 'Energy', 'DKK', 1.0, 13456564, 'saxo'),
+            Stock('Nikola', 'NKLA', 5.0, 42.0, 32.14, 0, '0', date(1, 1, 1),
+                  'Consumer Cyclical', 'USD', 6.283305, 17854349, 'saxo'),
+            Stock('Vale', 'VALE', 20.0, 11.065, 11.67, 0.222, 'semiannual', date(
+                2021, 2, 1), 'Basic Materials', 'USD', 6.283305, 37840, 'saxo'),
+            Stock('Exxon Mobil', 'XOM', 9.0, 39.888888888888886, 36.9, 3.48, 'quarterly', date(
+                2020, 12, 1), 'Energy', 'USD', 6.283305, 311, 'saxo'),
+            Stock('Apple', 'AAPL', 4.0, 128.7775, 112.01, 0.82, 'quarterly', date(
+                2020, 11, 1), 'Technology', 'USD', 6.283305, 211, 'saxo'),
+            Stock('Main Street Cap', 'MAIN', 8.0, 29.9, 30.28, 2.46, 'monthly', date(
+                2020, 10, 15), 'Financial Services', 'USD', 6.283305, 48957, 'saxo'),
+            Stock('Chimera Invt', 'CIM', 20.0, 8.7, 8.6, 1.2, 'quarterly', date(
+                2020, 10, 1), 'Real Estate', 'USD', 6.283305, 30721, 'saxo'),
+            Stock('NVIDIA', 'NVDA', 1.0, 572.0, 486.7, 0.64, 'quarterly', date(
+                2020, 9, 24), 'Technology', 'USD', 6.283305, 1249, 'saxo'),
+            Stock('Pembina Pipeline', 'PBA', 7.0, 23.807142857142857, 23.75, 1.931,
+                  'monthly', date(2020, 9, 15), 'Energy', 'USD', 6.283305, 1132835, 'saxo'),
+            Stock('Cronos Group', 'CRON', 11.0, 5.25, 5.22, 0, '0', date(
+                1, 1, 1), 'Healthcare', 'USD', 6.283305, 9140177, 'saxo'),
+            Stock('Fed Rlty Inv Tr', 'FRT', 6.0, 76.4, 77.12, 4.24, 'quarterly', date(
+                2020, 10, 15), 'Real Estate', 'USD', 6.283305, 44575, 'saxo'),
+        ]
