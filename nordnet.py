@@ -10,7 +10,7 @@ class Nordnet():
 
     # Hardcoded sectors because Nordnet returns in danish
     sector_dict = {
-        'ASTGRP': 'Consumer Cyclical'
+        'ASTRLS': 'Consumer Cyclical'
     }
 
     cookies = {}

@@ -144,7 +144,10 @@ class Saxo():
     def get_conversion_rates(self):
         rates = []
         for i in self.portfolio:
-            rates.append(i['NetPositionView']['ConversionRateCurrent'])
+            try:
+                rates.append(i['NetPositionView']['ConversionRateCurrent'])
+            except:
+                pass
         return rates
 
     def get_asset_classes(self):
@@ -172,6 +175,7 @@ class Saxo():
         sub_sector = json['GeneralInfo']['StockInfo']['SubSector']['Key']
         # Return sector
         # TODO return sub sector only for saxo
+        print(sector)
         return sector
 
     def get_div_yield_pct(self, uic):
@@ -186,7 +190,6 @@ class Saxo():
 
 
 if __name__ == '__main__':
-    saxo = saxo()
-    saxo.load_data()
+    saxo = Saxo()
     print(saxo.get_uics())
     print(saxo.get_sector(117271))
