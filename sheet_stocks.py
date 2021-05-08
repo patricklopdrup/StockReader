@@ -32,6 +32,7 @@ def update_stocks():
     update_header()
 
     all_stocks = load_stocks.get_all_stocks()
+    print("All stocks loaded")
     # Start right below header
     start_row = sheet_header.stock_offset + 1
     for i, stock in enumerate(all_stocks):

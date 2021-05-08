@@ -147,7 +147,8 @@ class Saxo():
             try:
                 rates.append(i['NetPositionView']['ConversionRateCurrent'])
             except:
-                pass
+                # API does not return 1 if it is DKK
+                rates.append(1.0)
         return rates
 
     def get_asset_classes(self):
@@ -171,11 +172,15 @@ class Saxo():
         r = requests.get(url, headers=self.headers)
         json = r.json()
         # Pull sector and sebsector out of json
-        sector = json['GeneralInfo']['StockInfo']['Sector']['Key']
-        sub_sector = json['GeneralInfo']['StockInfo']['SubSector']['Key']
+        try:
+            sector = json['GeneralInfo']['StockInfo']['Sector']['Key']
+            sub_sector = json['GeneralInfo']['StockInfo']['SubSector']['Key']
+        except:
+            sector = "No sector"
+            sub_sector = "No sub sector"
         # Return sector
         # TODO return sub sector only for saxo
-        print(sector)
+        #print(f"{sector}: {uic}")
         return sector
 
     def get_div_yield_pct(self, uic):

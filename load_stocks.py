@@ -6,12 +6,11 @@ import dividend
 import re
 from datetime import date
 from pprint import pprint
-import my_debug
 
 payout = payout_freq.Payout_freq()
-if not my_debug.is_debug:
-    nordnet = nordnet.Nordnet()
-    saxo = saxo.Saxo()
+
+nordnet = nordnet.Nordnet()
+saxo = saxo.Saxo()
 
 
 def fix_names(names):
@@ -45,7 +44,6 @@ def load_payout_dates(stock_amount, currencies, symbols):
     payout_dates = [date.min] * stock_amount
     for i in range(stock_amount):
         if currencies[i].lower() == 'usd':
-            print(f'Her: {symbols[i]}')
             payout_dates[i] = payout.get_next_payout_date(symbols[i])
     return payout_dates
 
@@ -111,7 +109,6 @@ def get_saxo_stocks():
         stocks.append(stock.Stock(names[i], symbols[i], shares[i], costs[i], market_values[i], dividends[i],
                                   frequencies[i], payout_dates[i], sectors[i], currencies[i], conversion_rates[i], ids[i], broker))
     return stocks
-
 
 
 if __name__ == '__main__':
