@@ -117,10 +117,7 @@ if __name__ == '__main__':
     # print(f'freq: {hej.freq_as_num()}')
     # print(hej.get_row())
     
-
-    # hej = get_nordnet_stocks()
-    hej = get_saxo_stocks()
-    # hej = get_all_stocks()
+    hej = get_all_stocks()
     pprint(hej)
     # print()
     # hej.sort(key=lambda x: x.payout_date)

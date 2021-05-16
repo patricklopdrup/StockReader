@@ -3,6 +3,8 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import load_stocks
 import sheet_header
+import my_debug
+from pprint import pprint
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -38,6 +40,8 @@ def update_stocks():
     for i, stock in enumerate(all_stocks):
         # Row with values for the stock
         row = stock.get_row()
+        if (my_debug.is_debug):
+            pprint(row)
         # Create range for each row
         second_letter = get_row_end_letter(len(row))
         # Update cur_row for each iteration

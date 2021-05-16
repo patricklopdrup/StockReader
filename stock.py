@@ -92,9 +92,12 @@ class Stock():
         self.div_exp *= rate
 
     def freq_as_num(self):
-        if self.freq:
-            return payout_freq.Payout_freq.frequency[self.freq]
-        else:
+        try:
+            if self.freq:
+                return payout_freq.Payout_freq.frequency[self.freq]
+            else:
+                return ''
+        except:
             return ''
 
     def cost_dkk(self):
