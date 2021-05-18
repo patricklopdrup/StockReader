@@ -14,10 +14,17 @@ class Nordnet():
     }
 
     cookies = {}
-    portfolio = []
+    complete_json = "" # store complete json
+    portfolio = []     # store everything to do with stocks
 
     def __init__(self):
+        '''
+        Log in
+        Save complete json used for some methods
+        Save the portfolio info used by most methods
+        '''
         self.login()
+        self.complete_json = self.get_complete_json()
         self.portfolio = self.get_portfolio_info()
 
     #
@@ -45,7 +52,7 @@ class Nordnet():
         self.cookies['xsrf'] = r.cookies['xsrf']
         self.cookies['NN-JWT'] = r.cookies['NN-JWT']
 
-    def get_portfolio_info(self):
+    def get_complete_json(self):
         url = "https://classic.nordnet.dk/oauth2/authorize?client_id=NEXT&response_type=code&redirect_uri=https%3A%2F%2Fwww.nordnet.dk%2Foauth2%2F&b=1"
         r = requests.get(url, cookies=self.cookies, allow_redirects=False)
         getNextUrl = r.headers["Location"]
@@ -64,10 +71,26 @@ class Nordnet():
         r = requests.post(url, cookies=self.cookies,
                           data=payload, headers=headers)
 
-        # Portfolio info as json
-        json = r.json()
-        # Return my data from json
+        # Return the json
+        return r.json()
+        
+
+    def get_portfolio_info(self):
+        '''
+        Get everything to do with the stocks
+        in the users portfolie.
+        This is used to load into the portfolio variable
+        in the __init__ method.
+        '''
+        json = self.complete_json
         return json[5]['body']
+
+    def get_cash_holding(self):
+        '''
+        Get the amount of cash the user has available
+        '''
+        json = self.complete_json
+        return json[1]['body']['total']['value']
 
     def get_single_stock_info(self, instrument_id):
         ''' TODO: does not work '''
@@ -207,5 +230,6 @@ class Nordnet():
 if __name__ == '__main__':
     hej = Nordnet()
     pprint(hej.portfolio)
+    #pprint(hej.get_cash_holding())
     # instrument_id = 17150971
     # hej.get_single_stock_info(instrument_id)

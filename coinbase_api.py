@@ -57,15 +57,17 @@ class CoinbaseApi():
         coins = []
         r = self.get_call('accounts')
         data_arr = r['data']
+        # loop through all wallets
         for data in data_arr:
+            # Only look at non-zero balance wallets
             if (float)(data['balance']['amount']) > 0.0:
                 pprint(data)
                 coins.append(data)
-            # if data['balance']['amount'] != 0:
-            #     coins.append(data)
-            #     print(data['name'])
-        #pprint(data)
+            
 
+    def get_accounts(self):
+        r = self.get_call('accounts')
+        pprint(r)
 
 if __name__ == '__main__':
     coinbase = CoinbaseApi(API_KEY, API_SECRET)
